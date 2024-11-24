@@ -1,6 +1,6 @@
 <h1 align="center"> ⛏️ Minecraft Bots ⛏️ </h1>
 
-Bots/scripts made in Python to automate repetitive and boring tasks in Minecraft. You can start all of them pressing ",". They use:
+Scripts made in Python to automate repetitive and boring tasks in Minecraft. You can start all of them pressing ",". They use:
 
 - PyAutoGUI: to control the mouse and keyboard;
 - Keyboard: to create event listeners for keyboard inputs.
