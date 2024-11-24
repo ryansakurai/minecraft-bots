@@ -6,24 +6,27 @@ import pyautogui as gui
 import keyboard
 
 flags = {
-    "continue": True,
+    "continue": False,
 }
 
 
 def main():
-    countdown()
+    def start_bot(_):
+        flags["continue"] = True
+    keyboard.on_press_key(",", start_bot)
 
     def exit_bot(_):
         flags["continue"] = False
     keyboard.on_press_key(".", exit_bot)
 
+    wait_start()
+
     while flags["continue"]:
         hit_skeleton()
 
-def countdown() -> None:
-    for sec in range(1, 6):
+def wait_start() -> None:
+    while not flags["continue"]:
         time.sleep(1)
-        print(sec)
 
 def hit_skeleton():
     gui.leftClick()

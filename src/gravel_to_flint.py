@@ -6,13 +6,17 @@ import pyautogui as gui
 import keyboard
 
 flags = {
-        "build up": True,
-        "tear down": False,
-    }
+    "build up": False,
+    "tear down": False,
+}
 
 
 def main():
     def change_mode(_):
+        if not flags["build up"] and not flags["tear down"]:
+            flags["build up"] = True
+            return
+
         flags["build up"] = not flags["build up"]
         flags["tear down"] = not flags["tear down"]
     keyboard.on_press_key(",", change_mode)
@@ -21,7 +25,7 @@ def main():
         flags["build up"] = flags["tear down"] = False
     keyboard.on_press_key(".", exit_bot)
 
-    countdown()
+    wait_start()
 
     while flags["build up"] or flags["tear down"]:
         if flags["build up"]:
@@ -34,10 +38,9 @@ def main():
             wait("tear down")
             tear_down(False)
 
-def countdown() -> None:
-    for sec in range(1, 6):
+def wait_start() -> None:
+    while not flags["build up"] and not flags["tear down"]:
         time.sleep(1)
-        print(sec)
 
 def build_up(turn_on: bool) -> None:
     if turn_on:
