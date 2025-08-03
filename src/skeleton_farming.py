@@ -5,10 +5,20 @@ import time
 import pyautogui as gui
 import keyboard
 
+SWORD_COOLDOWN = 0.25
+
+class Hotbar:
+    def __init__(self):
+        self._curr_slot = 1
+        gui.press("1")
+
+    def next_slot(self):
+        self._curr_slot = self._curr_slot % 9 + 1
+        gui.press(str(self._curr_slot))
+
 flags = {
     "continue": False,
 }
-
 
 def main():
     def start_bot(_):
@@ -20,9 +30,12 @@ def main():
     keyboard.on_press_key(".", exit_bot)
 
     wait_start()
+    hotbar = Hotbar()
 
     while flags["continue"]:
         hit_skeleton()
+        hotbar.next_slot()
+        time.sleep(SWORD_COOLDOWN)
 
 def wait_start() -> None:
     while not flags["continue"]:
@@ -30,7 +43,6 @@ def wait_start() -> None:
 
 def hit_skeleton():
     gui.leftClick()
-    time.sleep(0.25)
 
 
 if __name__ == "__main__":
